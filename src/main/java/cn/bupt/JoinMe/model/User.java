@@ -7,12 +7,12 @@ import cn.bupt.JoinMe.share.UserType;
 import java.util.Date;
 
 public class User {
-    public String getId() {
-        return Id;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setUserId(String userid) {
+        UserId = userid;
     }
 
     public String getName() {
@@ -111,7 +111,7 @@ public class User {
         ModifyDate = modifyDate;
     }
 
-    public String Id;
+    public String UserId;
     public String Name;
     public String Password;
     public UserType UserType;
