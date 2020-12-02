@@ -1,6 +1,6 @@
 package cn.bupt.JoinMe.controller;
 
-import cn.bupt.JoinMe.model.User;
+import cn.bupt.JoinMe.model.UserTest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +19,7 @@ public class ApiController {
 
     @GetMapping("user")
     @ResponseBody
-    public User getUser(User user)
+    public UserTest getUser(UserTest user)
     {
         return user;
     }
