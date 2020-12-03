@@ -1,6 +1,8 @@
-package cn.bupt.JoinMe.model;
+package cn.bupt.joinme.model;
 
-public class UserTest {
+import java.io.Serializable;
+
+public class UserTest implements Serializable {
     public String getName() {
         return name;
     }

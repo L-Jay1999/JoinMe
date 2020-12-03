@@ -1,4 +1,4 @@
-package cn.bupt.JoinMe.share;
+package cn.bupt.joinme.share;
 
 public enum LevelType {
     Diamond,

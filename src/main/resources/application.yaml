@@ -1,2 +1,10 @@
 server:
     port: 8080
+
+spring:
+  data:
+    mongodb:
+      # 端口到mongodb查看
+      uri: mongodb://localhost:27017/JoinMe
+
+bootWithSwagger: true
