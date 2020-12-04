@@ -25,14 +25,15 @@ public class ApiController {
     }
 
     // Test only
-    @GetMapping("userTest")
+    @PostMapping("userTest")
     @ResponseBody
-    public UserTest getUser(UserTest user)
+    public UserTest getUserTest(@RequestBody UserTest user)
     {
         userTestDao.saveUserTest(user);
         return user;
     }
 
+    // TODO: how to create? use id and code?
     @PostMapping("createUser")
     @ResponseBody
     public boolean createUser(User user)
@@ -52,4 +53,14 @@ public class ApiController {
     {
         return userDao.hasUser(userId);
     }
+
+    // TODO
+    @PostMapping("updateInfo")
+    @ResponseBody
+    public void updateInfo(User user){}
+
+    // TODO
+    @GetMapping("checkPwd")
+    @ResponseBody
+    public void checkPwd(String password){}
 }
