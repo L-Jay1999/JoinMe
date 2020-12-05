@@ -63,11 +63,11 @@ public class OrderRequest implements Serializable {
         this.requestState = requestState;
     }
 
-    public String requestId;
-    public String orderId;
-    public String userId;
-    public String description;
-    public Date createDate;
-    public Date modifyDate;
-    public RequestState requestState;
+    private String requestId;
+    private String orderId;
+    private String userId;
+    private String description;
+    private Date createDate;
+    private Date modifyDate;
+    private RequestState requestState;
 }

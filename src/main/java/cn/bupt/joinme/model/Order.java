@@ -96,15 +96,15 @@ public class Order implements Serializable {
         this.orderState = orderState;
     }
 
-    public String orderId;
-    public String userId;
-    public OrderType orderType;
-    public String orderName;
-    public String description;
-    public int number;
-    public Date endDate;
-    public String picture;
-    public Date createDate;
-    public Date modifyDate;
-    public OrderState orderState;
+    private String orderId;
+    private String userId;
+    private OrderType orderType;
+    private String orderName;
+    private String description;
+    private int number;
+    private Date endDate;
+    private String picture;
+    private Date createDate;
+    private Date modifyDate;
+    private OrderState orderState;
 }

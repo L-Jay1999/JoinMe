@@ -19,6 +19,6 @@ public class UserTest implements Serializable {
         this.code = code;
     }
 
-    public String name;
-    public String code;
+    private String name;
+    private String code;
 }

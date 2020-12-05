@@ -45,9 +45,9 @@ public class OrderRequestDetail implements Serializable {
         this.price = price;
     }
 
-    public String requestId;
-    public String userId;
-    public Set<String> acceptUsers;
-    public Date finishDate;
-    public int price;
+    private String requestId;
+    private String userId;
+    private Set<String> acceptUsers;
+    private Date finishDate;
+    private int price;
 }
