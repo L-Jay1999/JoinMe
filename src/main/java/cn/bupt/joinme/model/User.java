@@ -7,14 +7,18 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements Serializable {
-    public String getUserId() {
+
+    static AtomicInteger globalId = new AtomicInteger(0);
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId() {
+        this.userId = globalId.getAndIncrement();
     }
 
     public String getName() {
@@ -114,17 +118,17 @@ public class User implements Serializable {
     }
 
     @ApiModelProperty(required = true)
-    public String userId;
-    public String name;
-    public String password;
-    public UserType userType;
-    public String realName;
-    public CardType cardType;
-    public String cardNumber;
-    public String phoneNumber;
-    public LevelType levelType;
-    public String introduction;
-    public String city;
-    public Date registerDate;
-    public Date modifyDate;
+    private int userId;
+    private String name;
+    private String password;
+    private UserType userType;
+    private String realName;
+    private CardType cardType;
+    private String cardNumber;
+    private String phoneNumber;
+    private LevelType levelType;
+    private String introduction;
+    private String city;
+    private Date registerDate;
+    private Date modifyDate;
 }

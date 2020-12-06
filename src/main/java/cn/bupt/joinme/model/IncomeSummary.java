@@ -46,9 +46,9 @@ public class IncomeSummary implements Serializable {
         this.income = income;
     }
 
-    public Date date;
-    public String locale;
-    public OrderType orderType;
-    public int countOfSuccess;
-    public int income;
+    private Date date;
+    private String locale;
+    private OrderType orderType;
+    private int countOfSuccess;
+    private int income;
 }
