@@ -135,7 +135,7 @@ public class OrderDao {
 
     public List<Order> getRequestOrder(User user) {
         Query query = new Query(Criteria.where("userId").is(user.getUserId()));
-        List<OrderRequest> requests= mongoTemplate.find(query, OrderRequest.class);
+        List<OrderRequest> requests = mongoTemplate.find(query, OrderRequest.class);
         List<Order> res = new ArrayList<>();
         for (OrderRequest or: requests) {
             query = new Query(Criteria.where("orderId").is(or.getOrderId()));

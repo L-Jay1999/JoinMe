@@ -1,11 +1,9 @@
 package cn.bupt.joinme.controller;
 
 import cn.bupt.joinme.dao.UserDao;
-import cn.bupt.joinme.dao.UserTestDao;
 import cn.bupt.joinme.exception.BaseException;
 import cn.bupt.joinme.model.OrderRequest;
 import cn.bupt.joinme.model.User;
-import cn.bupt.joinme.model.UserTest;
 import cn.bupt.joinme.response.BaseResponse;
 import cn.bupt.joinme.response.ResponseResult;
 import cn.bupt.joinme.share.ResponseType;
@@ -20,26 +18,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserTestDao userTestDao;
-    @Autowired
     private UserDao userDao;
-
-    // Test only
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String Hello()
-//    {
-//        return "hello world!";
-//    }
-
-    // Test only
-//    @GetMapping("userTest")
-//    @ResponseBody
-//    public UserTest getUser(UserTest user)
-//    {
-//        userTestDao.saveUserTest(user);
-//        return user;
-//    }
 
     @GetMapping("/create")
     @ResponseBody

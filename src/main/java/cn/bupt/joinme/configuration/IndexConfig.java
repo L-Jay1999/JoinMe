@@ -19,14 +19,14 @@ public class IndexConfig {
     void applicationReadyEvent() {
         if(bootWithSwagger)
         {
-            String openUrl = "http://localhost:" + port + "/swagger-ui.html#/api-controller";
+            String openUrl = "http://localhost:" + port + "/swagger-ui.html";
             String osName = System.getProperty("os.name");
             Runtime runtime = Runtime.getRuntime();
             try {
                 if(osName.startsWith("Windows")){
                     runtime.exec("cmd /c start " + openUrl);
                 }
-                else{
+                else if(osName.startsWith("Mac OS")){
                     runtime.exec("open " + openUrl);
                 }
             } catch (IOException e) {
