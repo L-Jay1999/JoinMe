@@ -3,12 +3,10 @@ package cn.bupt.joinme.model;
 import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.OrderState;
 import cn.bupt.joinme.share.OrderType;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order implements Serializable {
 

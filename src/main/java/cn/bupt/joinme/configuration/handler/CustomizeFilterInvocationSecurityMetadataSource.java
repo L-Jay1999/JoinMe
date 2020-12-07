@@ -12,8 +12,6 @@ import org.springframework.util.AntPathMatcher;
 import java.util.Collection;
 import java.util.List;
 
-import static org.springframework.security.config.http.MatcherType.ant;
-
 /**
  * @Author: Hutengfei
  * @Description:

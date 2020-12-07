@@ -1,7 +1,6 @@
 package cn.bupt.joinme.dao;
 
 import cn.bupt.joinme.model.IncomeSummary;
-import cn.bupt.joinme.model.OrderRequestDetail;
 import cn.bupt.joinme.model.SearchRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

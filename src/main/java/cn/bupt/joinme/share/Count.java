@@ -7,11 +7,9 @@ import cn.bupt.joinme.model.OrderRequestDetail;
 import cn.bupt.joinme.model.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.BooleanOperators;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component

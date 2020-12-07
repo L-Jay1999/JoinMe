@@ -8,10 +8,6 @@ import cn.bupt.joinme.share.RequestState;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -135,7 +131,7 @@ public class OrderDao {
 
     public List<Order> getRequestOrder(User user) {
         Query query = new Query(Criteria.where("userId").is(user.getUserId()));
-        List<OrderRequest> requests= mongoTemplate.find(query, OrderRequest.class);
+        List<OrderRequest> requests = mongoTemplate.find(query, OrderRequest.class);
         List<Order> res = new ArrayList<>();
         for (OrderRequest or: requests) {
             query = new Query(Criteria.where("orderId").is(or.getOrderId()));

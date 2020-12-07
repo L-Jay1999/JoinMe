@@ -10,9 +10,14 @@ import cn.bupt.joinme.response.BaseResponse;
 import cn.bupt.joinme.response.ResponseResult;
 import cn.bupt.joinme.share.ResponseType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @BaseResponse
 @RestController
@@ -22,6 +27,9 @@ public class OrderController {
     private OrderDao orderDao;
     @Autowired
     private UserDao userDao;
+
+    @Value("${uploadImagePath}")
+    private String uploadImagePath;
 
     @GetMapping("/")
     @ResponseBody
@@ -67,6 +75,51 @@ public class OrderController {
                 throw new BaseException(ResponseType.NO_PERMISSON);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
+    }
+
+    @PostMapping("/{id}/upload")
+    @ResponseBody
+    public ResponseResult uploadImage(@PathVariable(name = "id") Integer id, @PathVariable MultipartFile file)
+    {
+        User res = userDao.getUser();
+        if (res != null) {
+            if (file.isEmpty())
+                return new ResponseResult(ResponseType.COMMON_FAIL);
+            String fileName = file.getOriginalFilename();
+            String suffixName;
+            if (fileName != null)
+                suffixName = fileName.substring(fileName.lastIndexOf("."));
+            else
+                throw new BaseException(ResponseType.COMMON_FAIL);
+            fileName = UUID.randomUUID() + suffixName;//图片名
+            String destpath = uploadImagePath + "/" + fileName;
+            File dest = new File(destpath);
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new BaseException(ResponseType.FILE_TRANSFER_ERROR);
+            }
+            Order order = getOneOrder(id);
+            if (order != null) {
+                String origin = order.getPicture();
+                File originPic = new File(origin);
+                if (originPic.exists())
+                    originPic.delete();
+                order.setPicture(destpath);
+                orderDao.updateOneOrder(res, id, order);
+                return new ResponseResult(ResponseType.SUCCESS);
+            }
+            else {
+                dest.delete();
+                return new ResponseResult(ResponseType.COMMON_FAIL);
+            }
+        }
+        else
+            throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
 
     @DeleteMapping("/{id}")

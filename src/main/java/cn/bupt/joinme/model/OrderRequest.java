@@ -2,12 +2,10 @@ package cn.bupt.joinme.model;
 
 import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.RequestState;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderRequest implements Serializable {
 

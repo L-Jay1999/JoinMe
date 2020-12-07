@@ -1,9 +1,6 @@
 package cn.bupt.joinme.dao;
 
-import cn.bupt.joinme.model.User;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
