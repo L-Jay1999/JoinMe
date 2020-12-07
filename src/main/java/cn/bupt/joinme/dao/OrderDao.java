@@ -51,6 +51,7 @@ public class OrderDao {
             return false;
         else {
             order.setOrderState(OrderState.Cancel);
+            order.setModifyDate(new Date());
             mongoTemplate.save(order);
             return true;
         }
@@ -77,9 +78,11 @@ public class OrderDao {
         }
     }
 
-    public void issueOrder(Order order) {
+    public void issueOrder(User user, Order order) {
         order.setCreateDate(new Date());
         order.setModifyDate(new Date());
+        order.setOrderId();
+        order.setUserId(user.getUserId());
         order.setOrderState(OrderState.Initial);
         mongoTemplate.save(order);
     }
@@ -89,11 +92,18 @@ public class OrderDao {
         Order res = mongoTemplate.findOne(query, Order.class);
         if (res == null || res.getUserId().equals(user.getUserId()))
             return false;
-        else if (res.getEndDate().getTime() <= new Date().getTime() || res.getOrderState() != OrderState.Initial)
+        else if (res.getEndDate().getTime() <= new Date().getTime() ||
+                (res.getOrderState() != OrderState.Initial && res.getOrderState() != OrderState.Respond))
             return false;
         else {
+            query = new Query(Criteria.where("orderId").is(orderId).and("requestState").is(RequestState.Accept));
+            long count = mongoTemplate.count(query, OrderRequest.class);
+            if (count >= res.getNumber())
+                return false;
             res.setOrderState(OrderState.Respond);
             mongoTemplate.save(res);
+            orderRequest.setUserId(user.getUserId());
+            orderRequest.setRequestId();
             orderRequest.setCreateDate(new Date());
             orderRequest.setModifyDate(new Date());
             orderRequest.setRequestState(RequestState.UnReady);
@@ -114,11 +124,20 @@ public class OrderDao {
         return orders;
     }
 
+    public boolean checkAcceptOrder(User user, Integer id) {
+        Query query = new Query(Criteria.where("userId").is(user.getUserId()));
+        List<OrderRequest> requests= mongoTemplate.find(query, OrderRequest.class);
+        for (OrderRequest or: requests)
+            if (or.getOrderId().equals(id))
+                return true;
+        return false;
+    }
+
     public List<Order> getRequestOrder(User user) {
         Query query = new Query(Criteria.where("userId").is(user.getUserId()));
         List<OrderRequest> requests= mongoTemplate.find(query, OrderRequest.class);
         List<Order> res = new ArrayList<>();
-        for(OrderRequest or: requests) {
+        for (OrderRequest or: requests) {
             query = new Query(Criteria.where("orderId").is(or.getOrderId()));
             res.add(mongoTemplate.findOne(query, Order.class));
         }

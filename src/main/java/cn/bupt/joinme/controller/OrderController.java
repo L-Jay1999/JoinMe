@@ -32,8 +32,12 @@ public class OrderController {
     @PostMapping("/issue")
     @ResponseBody
     public ResponseResult issueOrder(@RequestBody Order order) {
-        orderDao.issueOrder(order);
-        return new ResponseResult(ResponseType.SUCCESS);
+        User res = userDao.getUser();
+        if (res != null) {
+            orderDao.issueOrder(res, order);
+            return new ResponseResult(ResponseType.SUCCESS);
+        }
+        throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
 
     @GetMapping("/issued")
@@ -87,6 +91,19 @@ public class OrderController {
                 return new ResponseResult(ResponseType.SUCCESS);
             else
                 throw new BaseException(ResponseType.COMMON_FAIL);
+        }
+        throw new BaseException(ResponseType.USER_NOT_LOGIN);
+    }
+
+    @GetMapping("/{id}/request")
+    @ResponseBody
+    public ResponseResult checkAcceptOrder(@PathVariable(name = "id") Integer id) {
+        User res = userDao.getUser();
+        if (res != null) {
+            if (orderDao.checkAcceptOrder(res, id))
+                return new ResponseResult(ResponseType.SUCCESS.getCode(), ResponseType.SUCCESS.getMsg(), "YES");
+            else
+                return new ResponseResult(ResponseType.SUCCESS.getCode(), ResponseType.SUCCESS.getMsg(), "NO");
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }

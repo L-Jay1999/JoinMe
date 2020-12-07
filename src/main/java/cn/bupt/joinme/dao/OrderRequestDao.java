@@ -1,8 +1,6 @@
 package cn.bupt.joinme.dao;
 
-import cn.bupt.joinme.model.Order;
-import cn.bupt.joinme.model.OrderRequest;
-import cn.bupt.joinme.model.User;
+import cn.bupt.joinme.model.*;
 import cn.bupt.joinme.share.OrderState;
 import cn.bupt.joinme.share.RequestState;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,8 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class OrderRequestDao {
@@ -78,6 +75,7 @@ public class OrderRequestDao {
             return false;
         else {
             orderRequest1.setRequestState(RequestState.Decline);
+            orderRequest1.setModifyDate(new Date());
             mongoTemplate.save(orderRequest1);
             return true;
         }
@@ -94,10 +92,40 @@ public class OrderRequestDao {
         if (order == null || !order.getUserId().equals(user.getUserId()))
             return false;
         else {
-            order.setOrderState(OrderState.Finish);
-            mongoTemplate.save(order);
             orderRequest.setRequestState(RequestState.Accept);
             mongoTemplate.save(orderRequest);
+            query = new Query(Criteria.where("orderId").is(order.getOrderId()).and("requestState").is(RequestState.Accept));
+            long count = mongoTemplate.count(query, OrderRequest.class);
+            if (count + 1 == order.getNumber()) {
+                order.setOrderState(OrderState.Finish);
+                mongoTemplate.save(order);
+                OrderRequestDetail orderRequestDetail = new OrderRequestDetail();
+                orderRequestDetail.setDetailId();
+                orderRequestDetail.setOrderId(order.getOrderId());
+                orderRequestDetail.setFinishDate(new Date());
+                List<OrderRequest> or = mongoTemplate.find(query, OrderRequest.class);
+                Set<Integer> res = new HashSet<>();
+                for (OrderRequest o: or) {
+                    res.add(o.getUserId());
+                    query = new Query(Criteria.where("userId").is(o.getUserId()));
+                    User temp = mongoTemplate.findOne(query, User.class);
+                    IncomeSummary incomeSummary = new IncomeSummary();
+                    incomeSummary.setLocale(temp.getCity());
+                    incomeSummary.setIncome(1);
+                    incomeSummary.setDate(new Date());
+                    incomeSummary.setOrderType(order.getOrderType());
+                    mongoTemplate.save(incomeSummary);
+                }
+                orderRequestDetail.setAcceptUsers(res);
+                mongoTemplate.save(orderRequestDetail);
+
+                IncomeSummary incomeSummary = new IncomeSummary();
+                incomeSummary.setOrderType(order.getOrderType());
+                incomeSummary.setLocale(user.getCity());
+                incomeSummary.setIncome(3 * order.getNumber());
+                incomeSummary.setDate(new Date());
+                mongoTemplate.save(incomeSummary);
+            }
             return true;
         }
     }
