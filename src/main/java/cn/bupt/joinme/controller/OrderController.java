@@ -95,6 +95,19 @@ public class OrderController {
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
 
+    @GetMapping("/{id}/request")
+    @ResponseBody
+    public ResponseResult checkAcceptOrder(@PathVariable(name = "id") Integer id) {
+        User res = userDao.getUser();
+        if (res != null) {
+            if (orderDao.checkAcceptOrder(res, id))
+                return new ResponseResult(ResponseType.SUCCESS.getCode(), ResponseType.SUCCESS.getMsg(), "YES");
+            else
+                return new ResponseResult(ResponseType.SUCCESS.getCode(), ResponseType.SUCCESS.getMsg(), "NO");
+        }
+        throw new BaseException(ResponseType.USER_NOT_LOGIN);
+    }
+
     @GetMapping("/getrequested")
     @ResponseBody
     public List<Order> getRequestOrder() {

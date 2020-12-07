@@ -31,7 +31,7 @@ public class PermissonDao {
         if (url.equals("/user/create"))
             return null;
         if (pathMatcher.match("/admin/**", url))
-            return new ArrayList<>(Arrays.asList("admin"));
+            return new ArrayList<>(Collections.singletonList("admin"));
         else if (pathMatcher.match("/user/**", url) ||
                 pathMatcher.match("/orderrequest/**", url) ||
                 pathMatcher.match("/order/**", url))
