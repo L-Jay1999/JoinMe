@@ -35,11 +35,11 @@ public class OrderRequestDetail implements Serializable {
         this.userId = userId;
     }
 
-    public List<Integer> getAcceptUsers() {
+    public Set<Integer> getAcceptUsers() {
         return acceptUsers;
     }
 
-    public void setAcceptUsers(List<Integer> acceptUsers) {
+    public void setAcceptUsers(Set<Integer> acceptUsers) {
         this.acceptUsers = acceptUsers;
     }
 
@@ -56,6 +56,6 @@ public class OrderRequestDetail implements Serializable {
     private Integer detailId;
     private Integer orderId;
     private Integer userId;
-    private List<Integer> acceptUsers;
+    private Set<Integer> acceptUsers;
     private Date finishDate;
 }

@@ -11,9 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class OrderRequestDao {
@@ -106,7 +104,7 @@ public class OrderRequestDao {
                 orderRequestDetail.setOrderId(order.getOrderId());
                 orderRequestDetail.setFinishDate(new Date());
                 List<OrderRequest> or = mongoTemplate.find(query, OrderRequest.class);
-                List<Integer> res = new ArrayList<>();
+                Set<Integer> res = new HashSet<>();
                 for (OrderRequest o: or) {
                     res.add(o.getUserId());
                     query = new Query(Criteria.where("userId").is(o.getUserId()));
