@@ -30,14 +30,6 @@ public class IncomeSummary implements Serializable {
         this.orderType = orderType;
     }
 
-    public int getCountOfSuccess() {
-        return countOfSuccess;
-    }
-
-    public void setCountOfSuccess(int countOfSuccess) {
-        this.countOfSuccess = countOfSuccess;
-    }
-
     public int getIncome() {
         return income;
     }
@@ -49,6 +41,5 @@ public class IncomeSummary implements Serializable {
     private Date date;
     private String locale;
     private OrderType orderType;
-    private int countOfSuccess;
     private int income;
 }

@@ -1,18 +1,30 @@
 package cn.bupt.joinme.model;
 
+import cn.bupt.joinme.share.Count;
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderRequestDetail implements Serializable {
 
-    public Integer getRequestId() {
-        return requestId;
+    public Integer getDetailId() {
+        return detailId;
     }
 
-    public void setRequestId(Integer requestId) {
-        this.requestId = requestId;
+    public void setDetailId() {
+        this.detailId = Count.orderRequestDetailCount.getAndIncrement();
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getUserId() {
@@ -23,11 +35,11 @@ public class OrderRequestDetail implements Serializable {
         this.userId = userId;
     }
 
-    public Set<String> getAcceptUsers() {
+    public List<Integer> getAcceptUsers() {
         return acceptUsers;
     }
 
-    public void setAcceptUsers(Set<String> acceptUsers) {
+    public void setAcceptUsers(List<Integer> acceptUsers) {
         this.acceptUsers = acceptUsers;
     }
 
@@ -39,17 +51,10 @@ public class OrderRequestDetail implements Serializable {
         this.finishDate = finishDate;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    private Integer requestId;
+    @Id
+    private Integer detailId;
+    private Integer orderId;
     private Integer userId;
-    private Set<String> acceptUsers;
+    private List<Integer> acceptUsers;
     private Date finishDate;
-    private int price;
 }

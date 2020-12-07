@@ -1,8 +1,10 @@
 package cn.bupt.joinme.model;
 
+import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.OrderState;
 import cn.bupt.joinme.share.OrderType;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,14 +12,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order implements Serializable {
 
-    static AtomicInteger globalId = new AtomicInteger(0);
-
     public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = globalId.getAndIncrement();
+    public void setOrderId() {
+        this.orderId = Count.orderCount.getAndIncrement();
     }
 
     public Integer getUserId() {
@@ -100,6 +100,7 @@ public class Order implements Serializable {
         this.orderState = orderState;
     }
 
+    @Id
     private Integer orderId;
     private Integer userId;
     private OrderType orderType;

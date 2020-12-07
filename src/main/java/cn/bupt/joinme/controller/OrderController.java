@@ -32,8 +32,12 @@ public class OrderController {
     @PostMapping("/issue")
     @ResponseBody
     public ResponseResult issueOrder(@RequestBody Order order) {
-        orderDao.issueOrder(order);
-        return new ResponseResult(ResponseType.SUCCESS);
+        User res = userDao.getUser();
+        if (res != null) {
+            orderDao.issueOrder(res, order);
+            return new ResponseResult(ResponseType.SUCCESS);
+        }
+        throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
 
     @GetMapping("/issued")

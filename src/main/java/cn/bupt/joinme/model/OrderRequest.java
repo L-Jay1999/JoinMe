@@ -1,21 +1,22 @@
 package cn.bupt.joinme.model;
 
+import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.RequestState;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderRequest implements Serializable {
-    static AtomicInteger globalId = new AtomicInteger(0);
 
     public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
-        this.requestId = globalId.getAndIncrement(); ;
+    public void setRequestId() {
+        this.requestId = Count.orderRequestCount.getAndIncrement();
     }
 
     public Integer getOrderId() {
@@ -66,6 +67,7 @@ public class OrderRequest implements Serializable {
         this.requestState = requestState;
     }
 
+    @Id
     private Integer requestId;
     private Integer orderId;
     private Integer userId;

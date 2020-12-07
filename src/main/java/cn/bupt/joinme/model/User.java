@@ -1,9 +1,11 @@
 package cn.bupt.joinme.model;
 
 import cn.bupt.joinme.share.CardType;
+import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.LevelType;
 import cn.bupt.joinme.share.UserType;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,14 +14,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements Serializable {
 
-    static AtomicInteger globalId = new AtomicInteger(0);
-
     public Integer getUserId() {
         return userId;
     }
 
     public void setUserId() {
-        this.userId = globalId.getAndIncrement();
+        this.userId = Count.userCount.getAndIncrement();
     }
 
     public String getName() {
@@ -126,7 +126,7 @@ public class User implements Serializable {
         this.permission = permission;
     }
 
-    @ApiModelProperty(required = true)
+    @Id
     private Integer userId;
     private String userName;
     private String password;
