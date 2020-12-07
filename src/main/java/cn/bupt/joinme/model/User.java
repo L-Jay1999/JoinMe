@@ -4,13 +4,11 @@ import cn.bupt.joinme.share.CardType;
 import cn.bupt.joinme.share.Count;
 import cn.bupt.joinme.share.LevelType;
 import cn.bupt.joinme.share.UserType;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements Serializable {
 

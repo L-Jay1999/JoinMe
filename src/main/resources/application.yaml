@@ -4,9 +4,10 @@ server:
 spring:
   data:
     mongodb:
-      # 端口到mongodb查看
+      # check port in mongodb
       uri: mongodb://localhost:27017/JoinMe
 
 bootWithSwagger: true
 
+# If it works on Linux, set it as /home/jay/JoinMe/uploadPic
 uploadImagePath: D:/Source/IdeaProjects/JoinMe
