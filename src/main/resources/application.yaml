@@ -8,3 +8,5 @@ spring:
       uri: mongodb://localhost:27017/JoinMe
 
 bootWithSwagger: true
+
+uploadImagePath: D:/Source/IdeaProjects/JoinMe
