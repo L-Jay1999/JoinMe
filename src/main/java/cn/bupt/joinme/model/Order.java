@@ -6,21 +6,25 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order implements Serializable {
-    public String getOrderId() {
+
+    static AtomicInteger globalId = new AtomicInteger(0);
+
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = globalId.getAndIncrement();
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -96,8 +100,8 @@ public class Order implements Serializable {
         this.orderState = orderState;
     }
 
-    private String orderId;
-    private String userId;
+    private Integer orderId;
+    private Integer userId;
     private OrderType orderType;
     private String orderName;
     private String description;

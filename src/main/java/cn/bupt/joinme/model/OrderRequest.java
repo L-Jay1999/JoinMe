@@ -5,29 +5,32 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderRequest implements Serializable {
-    public String getRequestId() {
+    static AtomicInteger globalId = new AtomicInteger(0);
+
+    public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setRequestId(Integer requestId) {
+        this.requestId = globalId.getAndIncrement(); ;
     }
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -63,9 +66,9 @@ public class OrderRequest implements Serializable {
         this.requestState = requestState;
     }
 
-    private String requestId;
-    private String orderId;
-    private String userId;
+    private Integer requestId;
+    private Integer orderId;
+    private Integer userId;
     private String description;
     private Date createDate;
     private Date modifyDate;

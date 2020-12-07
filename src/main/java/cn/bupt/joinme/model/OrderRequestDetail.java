@@ -3,21 +3,23 @@ package cn.bupt.joinme.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderRequestDetail implements Serializable {
-    public String getRequestId() {
+
+    public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public void setRequestId(Integer requestId) {
         this.requestId = requestId;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -45,8 +47,8 @@ public class OrderRequestDetail implements Serializable {
         this.price = price;
     }
 
-    private String requestId;
-    private String userId;
+    private Integer requestId;
+    private Integer userId;
     private Set<String> acceptUsers;
     private Date finishDate;
     private int price;

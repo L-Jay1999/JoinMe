@@ -1,10 +1,17 @@
 package cn.bupt.joinme.share;
 
 public enum ResponseType {
-    SUCCESS(10000, "success"),
-    RESOURCES_NOT_EXIST(10001, "资源不存在"),
-    RESOURCES_ALREADY_EXIST(10002, "资源已存在"),
-    SERVICE_ERROR(50000, "服务器异常");
+
+    SUCCESS(10000, "sucess"),
+    USER_NOT_EXIST(10001, "user not exist"),
+    USER_ALREADY_EXIST(10002, "user already exist"),
+    NO_PERMISSON(10003, "no permisson"),
+    USER_NOT_LOGIN(10004, "user not login"),
+    USER_CREDENTIAL_ERROR(10005, "user credential error"),
+    SESSION_EXPIRE(10006, "session expire"),
+    COMMON_FAIL(10007, "common failure"),
+    SERVICE_ERROR(50000, "service error");
+
 
     private int code;
     private String msg;

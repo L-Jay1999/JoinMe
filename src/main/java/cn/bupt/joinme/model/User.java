@@ -7,13 +7,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements Serializable {
 
     static AtomicInteger globalId = new AtomicInteger(0);
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -22,11 +23,11 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return userName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.userName = name;
     }
 
     public String getPassword() {
@@ -117,9 +118,17 @@ public class User implements Serializable {
         this.modifyDate = modifyDate;
     }
 
+    public List<String> getPermission() {
+        return permission;
+    }
+
+    public void setPermission(List<String> permission) {
+        this.permission = permission;
+    }
+
     @ApiModelProperty(required = true)
-    private int userId;
-    private String name;
+    private Integer userId;
+    private String userName;
     private String password;
     private UserType userType;
     private String realName;
@@ -131,4 +140,5 @@ public class User implements Serializable {
     private String city;
     private Date registerDate;
     private Date modifyDate;
+    private List<String> permission;
 }
