@@ -12,17 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @Author: Hutengfei
- * @Description: 登录成功处理逻辑
- * @Date Create in 2019/9/3 15:52
- */
 @Component
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-//        User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         ResponseResult result = new ResponseResult(ResponseType.SUCCESS);
         httpServletResponse.setContentType("text/json;charset=utf-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(result));

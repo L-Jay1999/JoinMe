@@ -29,7 +29,7 @@ public class CustomizeAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
-        throw new AccessDeniedException("权限不足!");
+        throw new AccessDeniedException("no permisson");
     }
 
     @Override

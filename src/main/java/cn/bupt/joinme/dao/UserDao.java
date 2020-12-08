@@ -48,10 +48,8 @@ public class UserDao {
         return null;
     }
 
-    public User getUserBasedOnUserId(User user, Integer id) {
-        Query query = new Query(Criteria.where("userId").is(id));
-        User target = mongoTemplate.findOne(query, User.class);
-        query = new Query(Criteria.where("userId").is(user.getUserId()));
+    public boolean getUserBasedOnUserId(User user, Integer id) {
+        Query query = new Query(Criteria.where("userId").is(user.getUserId()));
         List<Order> orders = mongoTemplate.find(query, Order.class);
         List<OrderRequest> requests= new ArrayList<>();
         for (Order o: orders) {
@@ -66,10 +64,7 @@ public class UserDao {
                 break;
             }
 
-        if(!flag)
-            return null;
-        else
-            return target;
+        return flag;
     }
 
     public User getUser(Integer userId) {
@@ -97,18 +92,6 @@ public class UserDao {
             return false;
     }
 
-    public List<OrderRequest> getRequest(User user) {
-        System.out.println(user.getUserId());
-        Query query = new Query(Criteria.where("userId").is(user.getUserId()));
-        return mongoTemplate.find(query, OrderRequest.class);
-    }
-
-//    public void updateRequest(Integer id) {
-//        Query query = new Query(Criteria.where("requestId").is(id));
-//        OrderRequest orderRequest = mongoTemplate.findOne(query, OrderRequest.class);
-//        orderRequest.setDescription();
-//    }
-
     private boolean hasUser(String name) {
         Query query = new Query(Criteria.where("name").is(name));
         return mongoTemplate.exists(query, User.class);
@@ -118,5 +101,4 @@ public class UserDao {
         Query query = new Query(Criteria.where("userId").is(userId));
         return mongoTemplate.exists(query, User.class);
     }
-
 }

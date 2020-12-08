@@ -26,7 +26,6 @@ public class SwaggerConfig {
                 .build();
     }
 
-
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("JoinMe")
