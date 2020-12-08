@@ -1,10 +1,8 @@
 package cn.bupt.joinme.dao;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,9 +10,6 @@ import java.util.List;
 
 @Component
 public class PermissonDao {
-
-    @Resource
-    private MongoTemplate mongoTemplate;
 
     public List<String> getUserPermisson(String username) {
         if (username.equals("admin"))

@@ -10,10 +10,9 @@ public enum ResponseType {
     USER_CREDENTIAL_ERROR(10005, "user credential error"),
     SESSION_EXPIRE(10006, "session expire"),
     COMMON_FAIL(10007, "common failure"),
-    SERVICE_ERROR(50000, "service error"),
-    FILE_TRANSFER_ERROR(10008, "file transfer error");
-
-
+    FILE_TRANSFER_ERROR(10008, "file transfer error"),
+    RESOURCE_NOT_EXIST(10009, "resource not exist"),
+    SERVICE_ERROR(50000, "service error");
 
     private int code;
     private String msg;

@@ -37,10 +37,8 @@ public class OrderDao {
         return mongoTemplate.findOne(query, Order.class);
     }
 
-    public boolean deleteOneOrder(User user, Integer id) {
-        Query query = new Query(Criteria.where("orderId").is(id));
-        Order order = mongoTemplate.findOne(query, Order.class);
-        if (order == null || order.getOrderState() != OrderState.Initial)
+    public boolean deleteOneOrder(User user, Order order) {
+        if (order.getOrderState() != OrderState.Initial)
             return true;
 
         if (!user.getUserId().equals(order.getUserId()))
@@ -53,23 +51,25 @@ public class OrderDao {
         }
     }
 
-    public boolean updateOneOrder(User user, Integer id, Order newOrder) {
-        Query query = new Query(Criteria.where("orderId").is(id));
-        Order order = mongoTemplate.findOne(query, Order.class);
-        if (order == null || order.getOrderState() != OrderState.Initial)
+    public void updateOneOrder(Order order) {
+        mongoTemplate.save(order);
+    }
+
+    public boolean updateOneOrder(User user, Order oldOrder, Order newOrder) {
+        if (oldOrder.getOrderState() != OrderState.Initial)
             return true;
 
-        if (!user.getUserId().equals(order.getUserId()))
+        if (!user.getUserId().equals(oldOrder.getUserId()))
             return false;
         else {
-            order.setDescription(newOrder.getDescription());
-            order.setModifyDate(new Date());
-            order.setOrderName(newOrder.getOrderName());
-            order.setOrderType(newOrder.getOrderType());
-            order.setPicture(newOrder.getPicture());
-            order.setNumber(newOrder.getNumber());
-            order.setEndDate(newOrder.getEndDate());
-            mongoTemplate.save(order);
+            oldOrder.setDescription(newOrder.getDescription());
+            oldOrder.setModifyDate(new Date());
+            oldOrder.setOrderName(newOrder.getOrderName());
+            oldOrder.setOrderType(newOrder.getOrderType());
+            oldOrder.setPicture(newOrder.getPicture());
+            oldOrder.setNumber(newOrder.getNumber());
+            oldOrder.setEndDate(newOrder.getEndDate());
+            mongoTemplate.save(oldOrder);
             return true;
         }
     }
@@ -83,21 +83,19 @@ public class OrderDao {
         mongoTemplate.save(order);
     }
 
-    public boolean acceptOrder(User user, Integer orderId, OrderRequest orderRequest) {
-        Query query = new Query(Criteria.where("orderId").is(orderId));
-        Order res = mongoTemplate.findOne(query, Order.class);
-        if (res == null || res.getUserId().equals(user.getUserId()))
+    public boolean acceptOrder(User user, Order order, OrderRequest orderRequest) {
+        if (order.getUserId().equals(user.getUserId()))
             return false;
-        else if (res.getEndDate().getTime() <= new Date().getTime() ||
-                (res.getOrderState() != OrderState.Initial && res.getOrderState() != OrderState.Respond))
+        else if (order.getEndDate().getTime() <= new Date().getTime() ||
+                (order.getOrderState() != OrderState.Initial && order.getOrderState() != OrderState.Respond))
             return false;
         else {
-            query = new Query(Criteria.where("orderId").is(orderId).and("requestState").is(RequestState.Accept));
+            Query query = new Query(Criteria.where("orderId").is(order.getOrderId()).and("requestState").is(RequestState.Accept));
             long count = mongoTemplate.count(query, OrderRequest.class);
-            if (count >= res.getNumber())
+            if (count >= order.getNumber())
                 return false;
-            res.setOrderState(OrderState.Respond);
-            mongoTemplate.save(res);
+            order.setOrderState(OrderState.Respond);
+            mongoTemplate.save(order);
             orderRequest.setUserId(user.getUserId());
             orderRequest.setRequestId();
             orderRequest.setCreateDate(new Date());
