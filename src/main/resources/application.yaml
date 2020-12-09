@@ -10,4 +10,4 @@ spring:
 bootWithSwagger: true
 
 # If it works on Linux, set it as /home/jay/JoinMe/uploadPic
-uploadImagePath: D:/Source/IdeaProjects/JoinMe
+uploadImagePath: uploadPic
