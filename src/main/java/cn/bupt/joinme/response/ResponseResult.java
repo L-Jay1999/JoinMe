@@ -18,4 +18,8 @@ public class ResponseResult implements Serializable {
         this.msg = r.getMsg();
         this.data = null;
     }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 }
