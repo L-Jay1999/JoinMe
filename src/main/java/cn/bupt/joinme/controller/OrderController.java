@@ -11,11 +11,14 @@ import cn.bupt.joinme.response.ResponseResult;
 import cn.bupt.joinme.share.ResponseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -121,7 +124,7 @@ public class OrderController {
      */
     @PostMapping("/{id}/upload")
     @ResponseBody
-    public ResponseResult uploadImage(@PathVariable(name = "id") Integer id, @PathVariable MultipartFile file)
+    public ResponseResult uploadImage(@PathVariable(name = "id") Integer id, @RequestParam(value = "file") MultipartFile file)
     {
         User res = userDao.getUser();
         if (res != null) {
@@ -157,12 +160,28 @@ public class OrderController {
             File originPic = new File(origin);
             if (originPic.exists())
                 originPic.delete();
-            order.setPicture(destpath);
+            order.setPicture(fileName);
             orderDao.updateOneOrder(order);
             return new ResponseResult(ResponseType.SUCCESS);
         }
         else
             throw new BaseException(ResponseType.USER_NOT_LOGIN);
+    }
+
+    /**
+     * Get the picture of the order.
+     * @param filename Order.Picture
+     * @return picture
+     */
+    @GetMapping(value = "/{imgUrl:[a-zA-Z0-9_.-]+}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getImage(@PathVariable("imgUrl") String filename) throws IOException {
+        String path = Paths.get(uploadImagePath, filename).toString();
+        File file = new File(path);
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
     }
 
     /**
