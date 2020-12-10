@@ -79,12 +79,12 @@ public class UserDao {
 
     public boolean updateUser(User user) {
         Object objectuser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user instanceof UserDetails) {
+        if (objectuser instanceof UserDetails) {
             UserDetails realUser = (UserDetails)objectuser;
             Query query = new Query(Criteria.where("userName").is(realUser.getUsername()));
-            Update update = new Update().set("phoneNumber", user.getPhoneNumber()).
-                    set("password", new BCryptPasswordEncoder().encode(user.getPassword())).
-                    set("modifyDate", new Date());
+            Update update = new Update().set("phoneNumber", user.getPhoneNumber()).set("modifyDate", new Date());
+            if (user.getPassword() != null)
+                update.set("password", new BCryptPasswordEncoder().encode(user.getPassword()));
             mongoTemplate.updateFirst(query, update, User.class);
             return true;
         }
