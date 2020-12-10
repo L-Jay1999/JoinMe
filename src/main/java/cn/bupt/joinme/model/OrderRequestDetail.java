@@ -50,7 +50,7 @@ public class OrderRequestDetail implements Serializable {
     }
 
     @Id
-    private int id;
+    private String id;
     private Integer detailId;
     private Integer orderId;
     private Integer userId;
