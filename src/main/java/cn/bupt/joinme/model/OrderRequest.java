@@ -66,7 +66,7 @@ public class OrderRequest implements Serializable {
     }
 
     @Id
-    private int id;
+    private String id;
     private Integer requestId;
     private Integer orderId;
     private Integer userId;
