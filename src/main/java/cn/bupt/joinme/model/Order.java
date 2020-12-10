@@ -99,7 +99,7 @@ public class Order implements Serializable {
     }
 
     @Id
-    private Integer id;
+    private int id;
     private Integer orderId;
     private Integer userId;
     private OrderType orderType;

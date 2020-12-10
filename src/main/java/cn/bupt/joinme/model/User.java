@@ -125,7 +125,7 @@ public class User implements Serializable {
     }
 
     @Id
-    private Integer id;
+    private int id;
     private Integer userId;
     private String userName;
     private String password;
