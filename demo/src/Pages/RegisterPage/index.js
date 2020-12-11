@@ -56,20 +56,17 @@ class RegisterPage extends React.Component {
     }
 
     handleSelect(event) {
-        // const { name } = event.target;
         const { user } = this.state;
-        // const index = event.target.selectedIndex;
+        const index = event.target.selectedIndex;
 
-        // this.setState({
-        //     user : {
-        //         ...user,
-        //         [name] : index
-        //     }
-        // });
+        const type= (
+            index === 0 ? 'Identity' : 'Passport'
+        );
+
         this.setState({
             user: {
                 ...user,
-                cardType: 'identity',
+                cardType: type,
             }
         });
     }
@@ -77,7 +74,6 @@ class RegisterPage extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
 
-        // this.setState({ submitted: true });
         const { user } = this.state;
 
         const pwdForm = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9].*?[0-9]).{6,}$/;
@@ -140,7 +136,6 @@ class RegisterPage extends React.Component {
                         <select className="form-control" name="cardType" onChange={this.handleSelect}>
                             <option>身份证</option>
                             <option>护照</option>
-                            <option>其他</option>
                         </select>
 
                     </div>
