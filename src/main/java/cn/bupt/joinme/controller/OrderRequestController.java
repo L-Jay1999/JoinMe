@@ -62,7 +62,7 @@ public class OrderRequestController {
             if (or != null)
                 return or;
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         else
             throw new BaseException(ResponseType.USER_NOT_LOGIN);
@@ -83,7 +83,7 @@ public class OrderRequestController {
                 throw new BaseException(ResponseType.RESOURCE_NOT_EXIST);
 
             if (!or.getUserId().equals(res.getUserId()))
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
             else
                 return or;
         }
@@ -109,7 +109,7 @@ public class OrderRequestController {
             if (orderRequestDao.updateOrderRequest(res, or, orderRequest))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
@@ -131,7 +131,7 @@ public class OrderRequestController {
             if (orderRequestDao.deleteOrderRequest(res, or))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
@@ -153,7 +153,7 @@ public class OrderRequestController {
             if (orderRequestDao.approveOrderRequest(res, or))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
@@ -175,7 +175,7 @@ public class OrderRequestController {
             if (orderRequestDao.denyOrderRequest(res, or))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
