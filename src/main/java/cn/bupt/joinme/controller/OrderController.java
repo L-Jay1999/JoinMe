@@ -111,7 +111,7 @@ public class OrderController {
             if (orderDao.updateOneOrder(res, oldOrder, order))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
@@ -133,7 +133,7 @@ public class OrderController {
                 throw new BaseException(ResponseType.RESOURCE_NOT_EXIST);
 
             if (!order.getUserId().equals(res.getUserId()))
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
             if (file.isEmpty())
                 return new ResponseResult(ResponseType.COMMON_FAIL);
 
@@ -173,15 +173,22 @@ public class OrderController {
      * @param filename Order.Picture
      * @return picture
      */
-    @GetMapping(value = "/{imgUrl:[a-zA-Z0-9_.-]+}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/img/{imgUrl:[a-zA-Z0-9_.-]+}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(@PathVariable("imgUrl") String filename) throws IOException {
-        String path = Paths.get(uploadImagePath, filename).toString();
-        File file = new File(path);
-        FileInputStream inputStream = new FileInputStream(file);
-        byte[] bytes = new byte[inputStream.available()];
-        inputStream.read(bytes, 0, inputStream.available());
-        return bytes;
+        User res = userDao.getUser();
+        if (res != null) {
+            String path = Paths.get(uploadImagePath, filename).toString();
+            File file = new File(path);
+            if (!file.exists())
+                throw new BaseException(ResponseType.RESOURCE_NOT_EXIST);
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        }
+        else
+            throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }
 
     /**
@@ -201,7 +208,7 @@ public class OrderController {
             if (orderDao.deleteOneOrder(res, order))
                 return new ResponseResult(ResponseType.SUCCESS);
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         throw new BaseException(ResponseType.USER_NOT_LOGIN);
     }

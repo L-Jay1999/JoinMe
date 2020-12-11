@@ -98,7 +98,7 @@ public class UserController {
             if (hasPermisson)
                 return user;
             else
-                throw new BaseException(ResponseType.NO_PERMISSON);
+                throw new BaseException(ResponseType.NO_PERMISSION);
         }
         else
             throw new BaseException(ResponseType.USER_NOT_LOGIN);

@@ -2,10 +2,10 @@ package cn.bupt.joinme.share;
 
 public enum ResponseType {
 
-    SUCCESS(10000, "sucess"),
+    SUCCESS(10000, "success"),
     USER_NOT_EXIST(10001, "user not exist"),
     USER_ALREADY_EXIST(10002, "user already exist"),
-    NO_PERMISSON(10003, "no permisson"),
+    NO_PERMISSION(10003, "no permission"),
     USER_NOT_LOGIN(10004, "user not login"),
     USER_CREDENTIAL_ERROR(10005, "user credential error"),
     SESSION_EXPIRE(10006, "session expire"),

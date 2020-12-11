@@ -19,7 +19,7 @@ public class CustomizeAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        ResponseResult result = new ResponseResult(ResponseType.NO_PERMISSON);
+        ResponseResult result = new ResponseResult(ResponseType.NO_PERMISSION);
         httpServletResponse.setContentType("text/json;charset=utf-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(result));
     }
