@@ -15,6 +15,7 @@ import java.util.List;
  * 负责处理管理员发出的请求
  */
 @BaseResponse
+@CrossOrigin
 @RestController
 @RequestMapping(value = "admin")
 public class AdminController {

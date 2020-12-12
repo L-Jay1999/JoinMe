@@ -20,11 +20,11 @@ public class User implements Serializable {
         this.userId = Count.userCount.getAndIncrement();
     }
 
-    public String getName() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setName(String name) {
+    public void setUserName(String name) {
         this.userName = name;
     }
 

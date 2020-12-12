@@ -24,7 +24,7 @@ public class UserDao {
     private MongoTemplate mongoTemplate;
 
     public boolean createUser(User user) {
-        if (hasUser(user.getName()))
+        if (hasUser(user.getUserName()))
             return false;
 
         user.setUserId();
@@ -93,7 +93,7 @@ public class UserDao {
     }
 
     private boolean hasUser(String name) {
-        Query query = new Query(Criteria.where("name").is(name));
+        Query query = new Query(Criteria.where("userName").is(name));
         return mongoTemplate.exists(query, User.class);
     }
 

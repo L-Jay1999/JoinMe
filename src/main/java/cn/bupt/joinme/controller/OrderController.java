@@ -27,6 +27,7 @@ import java.util.UUID;
  * 负责处理发布、响应、修改、删除召集令及返回召集令的相关请求
  */
 @BaseResponse
+@CrossOrigin
 @RestController
 @RequestMapping(value = "order")
 public class OrderController {
