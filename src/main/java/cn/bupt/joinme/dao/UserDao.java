@@ -82,8 +82,9 @@ public class UserDao {
         if (objectuser instanceof UserDetails) {
             UserDetails realUser = (UserDetails)objectuser;
             Query query = new Query(Criteria.where("userName").is(realUser.getUsername()));
-            Update update = new Update().set("phoneNumber", user.getPhoneNumber()).set("modifyDate", new Date());
-            if (user.getPassword() != null)
+            Update update = new Update().set("phoneNumber", user.getPhoneNumber());
+            update.set("introduction", user.getIntroduction()).set("modifyDate", new Date());
+            if (user.getPassword() != "")
                 update.set("password", new BCryptPasswordEncoder().encode(user.getPassword()));
             mongoTemplate.updateFirst(query, update, User.class);
             return true;
