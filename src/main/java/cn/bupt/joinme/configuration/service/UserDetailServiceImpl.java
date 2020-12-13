@@ -36,6 +36,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         });
 
         System.out.println("password" + user.getPassword());
-        return new User(user.getName(), user.getPassword(),grantedAuthorities);
+        return new User(user.getUserName(), user.getPassword(),grantedAuthorities);
     }
 }

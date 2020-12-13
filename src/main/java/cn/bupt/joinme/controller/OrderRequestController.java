@@ -20,6 +20,7 @@ import java.util.List;
  * 负责处理修改、删除召集令请求及返回召集令请求的相关请求
  */
 @BaseResponse
+@CrossOrigin
 @RestController
 @RequestMapping(value = "orderrequest")
 public class OrderRequestController {

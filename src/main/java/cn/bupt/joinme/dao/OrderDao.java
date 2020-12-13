@@ -5,6 +5,7 @@ import cn.bupt.joinme.model.OrderRequest;
 import cn.bupt.joinme.model.User;
 import cn.bupt.joinme.share.OrderState;
 import cn.bupt.joinme.share.RequestState;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,7 +23,9 @@ public class OrderDao {
     private MongoTemplate mongoTemplate;
 
     public List<Order> getOrder() {
-        List<Order> orders = mongoTemplate.findAll(Order.class);
+        Query query = new Query();
+        query.with(Sort.by(Sort.Order.desc("endDate"), Sort.Order.desc("orderId")));
+        List<Order> orders = mongoTemplate.find(query, Order.class);
         for (Order o: orders) {
             if (o.getEndDate().getTime() <= new Date().getTime()) {
                 o.setOrderState(OrderState.Due);
@@ -96,6 +99,7 @@ public class OrderDao {
                 return false;
             order.setOrderState(OrderState.Respond);
             mongoTemplate.save(order);
+            orderRequest.setOrderId(order.getOrderId());
             orderRequest.setUserId(user.getUserId());
             orderRequest.setRequestId();
             orderRequest.setCreateDate(new Date());

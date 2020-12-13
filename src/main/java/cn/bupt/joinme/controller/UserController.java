@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * 负责处理与创建用户及与用户信息相关的请求
  */
 @BaseResponse
+@CrossOrigin
 @RestController
 @RequestMapping(value = "user")
 public class UserController {

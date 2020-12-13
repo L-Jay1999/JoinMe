@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @BaseResponse
+@CrossOrigin
 @RestController
 @RequestMapping("/test")
 public class TestController {

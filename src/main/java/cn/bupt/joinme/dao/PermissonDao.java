@@ -20,7 +20,7 @@ public class PermissonDao {
 
     public List<String> getUrlPermisson(String url) {
         AntPathMatcher pathMatcher = new AntPathMatcher();
-        if (url.equals("/user/create"))
+        if (url.equals("/user/create") || url.equals("/order/"))
             return null;
         if (pathMatcher.match("/admin/**", url))
             return new ArrayList<>(Collections.singletonList("admin"));
