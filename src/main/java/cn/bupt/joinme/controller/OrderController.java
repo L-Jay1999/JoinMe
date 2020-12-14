@@ -39,6 +39,12 @@ public class OrderController {
     @Value("${uploadImagePath}")
     private String uploadImagePath;
 
+    @Value("${server.ip}")
+    private String serverip;
+
+    @Value("${server.port}")
+    private String serverport;
+
     /**
      * 获取系统中的所有召集令信息
      * @return 系统中所有召集令信息组成的列表
@@ -161,7 +167,8 @@ public class OrderController {
             File originPic = new File(origin);
             if (originPic.exists())
                 originPic.delete();
-            order.setPicture(fileName);
+            String picture = "http://" + serverip + ":" + serverport + "/order/img/" + fileName;
+            order.setPicture(picture);
             orderDao.updateOneOrder(order);
             return new ResponseResult(ResponseType.SUCCESS);
         }
