@@ -77,7 +77,7 @@ public class OrderRequestDao {
             mongoTemplate.save(orderRequest);
             query = new Query(Criteria.where("orderId").is(order.getOrderId()).and("requestState").is(RequestState.Accept));
             long count = mongoTemplate.count(query, OrderRequest.class);
-            if (count + 1 == order.getNumber()) {
+            if (count == order.getNumber()) {
                 order.setOrderState(OrderState.Finish);
                 mongoTemplate.save(order);
                 OrderRequestDetail orderRequestDetail = new OrderRequestDetail();
