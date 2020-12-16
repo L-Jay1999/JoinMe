@@ -1,6 +1,7 @@
 server:
     port: 8080
-    ip: localhost
+    # 52.250.51.146
+    ip: 52.250.51.146
 
 spring:
   data:
@@ -8,7 +9,7 @@ spring:
       # check port in mongodb
       uri: mongodb://localhost:27017/JoinMe
 
-bootWithSwagger: true
+bootWithSwagger: false
 
 # If it works on Linux, set it as /home/jay/JoinMe/uploadPic
 uploadImagePath: uploadPic
