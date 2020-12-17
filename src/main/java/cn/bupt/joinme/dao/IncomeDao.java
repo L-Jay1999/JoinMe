@@ -18,11 +18,11 @@ public class IncomeDao {
 
     public List<IncomeSummary> getIncome(SearchRequest searchRequest) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("date").lt(searchRequest.getEndDate()));
-        query.addCriteria(Criteria.where("date").gte(searchRequest.getStartDate()));
+        query.addCriteria(Criteria.where("date").gte(searchRequest.getStartDate()).lt(searchRequest.getEndDate()));
+        // query.addCriteria(Criteria.where("date").gte(searchRequest.getStartDate()));
         if (searchRequest.getOrderType() != null)
             query.addCriteria(Criteria.where("orderType").is(searchRequest.getOrderType()));
-        if (searchRequest.getLocation() != null)
+        if (searchRequest.getLocation() != "")
             query.addCriteria(Criteria.where("location").is(searchRequest.getLocation()));
         return mongoTemplate.find(query, IncomeSummary.class);
     }
