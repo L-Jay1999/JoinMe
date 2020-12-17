@@ -131,7 +131,7 @@ public class OrderController {
      */
     @PostMapping("/{id}/upload")
     @ResponseBody
-    public ResponseResult uploadImage(@PathVariable(name = "id") Integer id, @RequestParam(value = "file") MultipartFile file)
+    public ResponseResult uploadImage(@PathVariable(name = "id") Integer id, MultipartFile file)
     {
         User res = userDao.getUser();
         if (res != null) {
@@ -163,10 +163,6 @@ public class OrderController {
                 throw new BaseException(ResponseType.FILE_TRANSFER_ERROR);
             }
 
-            String origin = order.getPicture();
-            File originPic = new File(origin);
-            if (originPic.exists())
-                originPic.delete();
             String picture = "http://" + serverip + ":" + serverport + "/order/img/" + fileName;
             order.setPicture(picture);
             orderDao.updateOneOrder(order);
