@@ -18,8 +18,7 @@ public class OrderRequestDetailDao {
 
     public List<OrderRequestDetail> getRequestDetail(SearchRequest searchRequest) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("finishDate").lt(searchRequest.getEndDate()));
-        query.addCriteria(Criteria.where("finishDate").gte(searchRequest.getStartDate()));
+        query.addCriteria(Criteria.where("finishDate").lt(searchRequest.getEndDate()).gte(searchRequest.getStartDate()));
         return mongoTemplate.find(query, OrderRequestDetail.class);
     }
 }
