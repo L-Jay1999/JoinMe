@@ -25,7 +25,7 @@ public class TestController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseResult uploadImage(@RequestParam(value = "file") MultipartFile file)
+    public ResponseResult uploadImage(MultipartFile file)
     {
         if (file.isEmpty())
             return new ResponseResult(ResponseType.COMMON_FAIL);
