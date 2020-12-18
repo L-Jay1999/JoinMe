@@ -98,6 +98,7 @@ public class OrderRequestDao {
                     mongoTemplate.save(incomeSummary);
                 }
                 orderRequestDetail.setAcceptUsers(res);
+                orderRequestDetail.setUserId(order.getUserId());
                 mongoTemplate.save(orderRequestDetail);
 
                 IncomeSummary incomeSummary = new IncomeSummary();
