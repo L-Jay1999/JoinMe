@@ -1,7 +1,6 @@
 server:
     port: 8080
-    # 52.250.51.146
-    ip: 52.250.51.146
+    ip: localhost
 
 spring:
   data:
@@ -12,4 +11,4 @@ spring:
 bootWithSwagger: false
 
 # If it works on Linux, set it as /home/jay/JoinMe/uploadPic, D:/Source/IdeaProjects/JoinMe/uploadPic
-uploadImagePath: /home/jay/JoinMe/uploadPic
+uploadImagePath: /Users/jay/Pictures/uploadPic
